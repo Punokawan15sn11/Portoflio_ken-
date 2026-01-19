@@ -1,0 +1,623 @@
+<!DOCTYPE html>
+<html lang="id" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kennedi Rahmat Hidayat - Portfolio</title>
+    
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- Lucide Icons -->
+    <script src="https://unpkg.com/lucide@latest"></script>
+    
+    <!-- Custom Font: Plus Jakarta Sans (Lebih modern & friendly daripada Inter) -->
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['"Plus Jakarta Sans"', 'sans-serif'],
+                    },
+                    colors: {
+                        slate: {
+                            50: '#f8fafc', // Background utama yang sangat terang
+                            100: '#f1f5f9',
+                            200: '#e2e8f0',
+                            300: '#cbd5e1',
+                            400: '#94a3b8',
+                            500: '#64748b',
+                            600: '#475569', // Warna teks utama yang lembut
+                            700: '#334155',
+                            800: '#1e293b',
+                            900: '#0f172a', // Warna heading
+                        },
+                        orange: {
+                            50: '#fff7ed',
+                            400: '#fb923c',
+                            500: '#f97316',
+                            600: '#ea580c', // Aksen utama
+                            700: '#c2410c',
+                        }
+                    },
+                    boxShadow: {
+                        'soft': '0 4px 20px -2px rgba(0, 0, 0, 0.05)', // Bayangan halus untuk kesan bersih
+                        'card': '0 0 0 1px rgba(0,0,0,0.03), 0 2px 8px rgba(0,0,0,0.04)',
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        /* Hide default scrollbar for cleaner look, create custom thin one */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: transparent;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #cbd5e1;
+            border-radius: 20px;
+            border: 3px solid transparent;
+            background-clip: content-box;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background-color: #94a3b8;
+        }
+        
+        .glass-nav {
+            background: rgba(255, 255, 255, 0.85);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.5);
+        }
+    </style>
+</head>
+<body class="min-h-screen bg-slate-50 font-sans text-slate-600 antialiased selection:bg-orange-100 selection:text-orange-700">
+
+    <!-- Navigation -->
+    <nav class="fixed w-full glass-nav z-50 transition-all duration-300" id="navbar">
+        <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between items-center h-20">
+                <!-- Logo -->
+                <div class="flex-shrink-0 flex items-center cursor-pointer group" onclick="window.scrollTo(0,0)">
+                    <div class="w-8 h-8 bg-slate-900 rounded-lg flex items-center justify-center mr-3 group-hover:bg-orange-600 transition-colors">
+                        <span class="text-white font-bold text-lg">K</span>
+                    </div>
+                    <span class="text-xl font-bold text-slate-900 tracking-tight">Kennedi<span class="text-orange-600">.</span></span>
+                </div>
+                
+                <!-- Desktop Menu -->
+                <div class="hidden md:flex space-x-8 items-center">
+                    <button onclick="scrollToSection('about')" class="text-sm font-medium text-slate-600 hover:text-slate-900 transition-colors">Tentang</button>
+                    <button onclick="scrollToSection('experience')" class="text-sm font-medium text-slate-600 hover:text-slate-900 transition-colors">Portfolio</button>
+                    <button onclick="scrollToSection('journey')" class="text-sm font-medium text-slate-600 hover:text-slate-900 transition-colors">Perjalanan</button>
+                    <button onclick="scrollToSection('skills')" class="text-sm font-medium text-slate-600 hover:text-slate-900 transition-colors">Keahlian</button>
+                    <a href="mailto:hello@kennedi.id" class="ml-4 px-5 py-2.5 bg-slate-900 hover:bg-slate-800 text-white text-sm font-medium rounded-full transition-all hover:shadow-lg transform hover:-translate-y-0.5">
+                        Mari Ngobrol
+                    </a>
+                </div>
+
+                <!-- Mobile Menu Button -->
+                <div class="md:hidden">
+                    <button id="mobile-menu-btn" class="text-slate-600 hover:text-slate-900 p-2">
+                        <i data-lucide="menu" class="w-6 h-6" id="menu-icon"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Mobile Menu -->
+        <div id="mobile-menu" class="hidden md:hidden bg-white/95 backdrop-blur-xl border-t border-slate-100 absolute w-full shadow-soft h-screen">
+            <div class="px-6 py-8 space-y-4">
+                <button onclick="scrollToSection('about')" class="block w-full text-left text-lg font-medium text-slate-600 hover:text-orange-600">Tentang</button>
+                <button onclick="scrollToSection('experience')" class="block w-full text-left text-lg font-medium text-slate-600 hover:text-orange-600">Portfolio</button>
+                <button onclick="scrollToSection('journey')" class="block w-full text-left text-lg font-medium text-slate-600 hover:text-orange-600">Perjalanan Karir</button>
+                <button onclick="scrollToSection('skills')" class="block w-full text-left text-lg font-medium text-slate-600 hover:text-orange-600">Keahlian</button>
+                <div class="pt-6 border-t border-slate-100">
+                    <a href="mailto:hello@kennedi.id" class="block w-full text-center px-6 py-3 bg-orange-600 text-white font-semibold rounded-xl shadow-lg shadow-orange-200">
+                        Hubungi Saya
+                    </a>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section id="about" class="pt-32 pb-20 lg:pt-48 lg:pb-32 px-4 relative overflow-hidden">
+        <div class="max-w-6xl mx-auto relative z-10">
+            <!-- Ubah lg:flex-row-reverse kembali menjadi lg:flex-row agar Foto di Kanan dan Teks di Kiri -->
+            <div class="flex flex-col lg:flex-row items-center gap-12 lg:gap-20">
+                
+                <div class="lg:w-3/5 text-center lg:text-left">
+                    <div class="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-white border border-slate-200 shadow-sm text-slate-600 text-sm font-medium mb-8 animate-fade-in-up">
+                        <span class="w-2 h-2 rounded-full bg-green-500 animate-pulse"></span>
+                        Available for Projects
+                    </div>
+                    
+                    <h1 class="text-4xl md:text-6xl lg:text-7xl font-bold tracking-tight text-slate-900 mb-6 leading-[1.1]">
+                        Transformasi Ide Edukasi jadi <span class="text-orange-600 relative inline-block">
+                            Produk Digital
+                            <svg class="absolute w-full h-3 -bottom-1 left-0 text-orange-200 -z-10" viewBox="0 0 100 10" preserveAspectRatio="none">
+                                <path d="M0 5 Q 50 10 100 5" stroke="currentColor" stroke-width="8" fill="none" />
+                            </svg>
+                        </span> yang Scalable.
+                    </h1>
+                    
+                    <p class="text-lg md:text-xl text-slate-500 mb-10 leading-relaxed max-w-2xl mx-auto lg:mx-0">
+                        Hai, saya Kennedi. Saya menjembatani dunia <span class="font-semibold text-slate-700">Bisnis</span> dan <span class="font-semibold text-slate-700">Produk</span>. 
+                        Fokus membantu institusi dan startup edutech tumbuh lewat data, bukan sekadar asumsi.
+                    </p>
+                    
+                    <div class="flex flex-col sm:flex-row gap-4 justify-center lg:justify-start">
+                        <button onclick="scrollToSection('experience')" class="px-8 py-4 bg-slate-900 hover:bg-slate-800 text-white font-semibold rounded-xl transition-all shadow-lg hover:shadow-slate-200 hover:-translate-y-1 flex items-center justify-center gap-2 group">
+                            Lihat Hasil Kerja
+                            <i data-lucide="arrow-down" class="w-4 h-4 group-hover:translate-y-1 transition-transform"></i>
+                        </button>
+                        <a href="mailto:hello@kennedi.id" class="px-8 py-4 bg-white border border-slate-200 hover:border-slate-300 text-slate-700 font-semibold rounded-xl transition-all hover:bg-slate-50 text-center shadow-sm">
+                            Kontak Personal
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Visual Decoration (Photo & Stats) -->
+                <div class="lg:w-2/5 relative hidden lg:block">
+                    <div class="relative w-full aspect-square">
+                        <!-- Background Blob -->
+                        <div class="absolute inset-0 bg-gradient-to-tr from-orange-100 to-blue-50 rounded-full blur-3xl opacity-60"></div>
+                        
+                        <!-- Main Photo Container -->
+                        <div class="relative w-full h-full rounded-[2rem] overflow-hidden border-4 border-white shadow-2xl rotate-3 hover:rotate-0 transition-transform duration-500 z-10 bg-slate-200">
+                            <!-- Tambahkan referrerpolicy="no-referrer" untuk mengatasi blokir Google Drive -->
+                            <img src="https://drive.google.com/uc?export=view&id=13QoXyNK7jKr1ZOeZGXwerZXIkeUhRkAi" 
+                                 referrerpolicy="no-referrer" 
+                                 alt="Kennedi Rahmat Hidayat" 
+                                 class="w-full h-full object-cover">
+                        </div>
+                        
+                        <!-- Floating Stats Card (Top Left) -->
+                        <div class="absolute top-8 -left-8 bg-white/90 backdrop-blur-md p-4 rounded-2xl shadow-soft border border-white z-20 animate-[bounce_3s_infinite]">
+                            <div class="flex items-center gap-3">
+                                <div class="w-10 h-10 bg-orange-100 rounded-full flex items-center justify-center text-orange-600">
+                                    <i data-lucide="trending-up" class="w-5 h-5"></i>
+                                </div>
+                                <div>
+                                    <div class="text-xs text-slate-500 font-medium">Total Growth</div>
+                                    <div class="text-lg font-bold text-slate-900">70,000+ Users</div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <!-- Floating Partners Card (Bottom Right) -->
+                        <div class="absolute -bottom-4 -right-4 bg-white p-6 rounded-2xl shadow-soft border border-slate-100 -rotate-3 hover:rotate-0 transition-transform duration-500 z-20">
+                            <div class="flex items-center gap-3">
+                                <div class="flex -space-x-2">
+                                    <div class="w-8 h-8 rounded-full bg-slate-200 border-2 border-white"></div>
+                                    <div class="w-8 h-8 rounded-full bg-slate-300 border-2 border-white"></div>
+                                    <div class="w-8 h-8 rounded-full bg-slate-400 border-2 border-white"></div>
+                                </div>
+                                <div class="text-sm font-semibold text-slate-700">Trusted by Partners</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- The Numbers (Clean Card Style) -->
+    <section class="py-6 px-4">
+        <div class="max-w-5xl mx-auto">
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                <div class="bg-white p-6 rounded-2xl shadow-card flex flex-col items-center text-center hover:shadow-soft transition-shadow">
+                    <span class="text-4xl font-bold text-slate-900 mb-1">70k+</span>
+                    <span class="text-sm text-slate-500 font-medium">Active Users Acquired</span>
+                </div>
+                <div class="bg-white p-6 rounded-2xl shadow-card flex flex-col items-center text-center hover:shadow-soft transition-shadow">
+                    <span class="text-4xl font-bold text-slate-900 mb-1">7 Tahun</span>
+                    <span class="text-sm text-slate-500 font-medium">Product & BizDev Experience</span>
+                </div>
+                <div class="bg-white p-6 rounded-2xl shadow-card flex flex-col items-center text-center hover:shadow-soft transition-shadow">
+                    <span class="text-4xl font-bold text-slate-900 mb-1">15+</span>
+                    <span class="text-sm text-slate-500 font-medium">Strategic Partnerships</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Featured Case Studies -->
+    <section id="experience" class="py-24 px-4 bg-white">
+        <div class="max-w-6xl mx-auto">
+            <div class="flex flex-col md:flex-row justify-between items-end mb-16 gap-4">
+                <div class="max-w-2xl">
+                    <h2 class="text-sm font-bold text-orange-600 tracking-wider uppercase mb-2">Portfolio Unggulan</h2>
+                    <h3 class="text-3xl md:text-4xl font-bold text-slate-900">Impact Nyata, Bukan Teori.</h3>
+                </div>
+                <a href="mailto:hello@kennedi.id" class="text-slate-500 hover:text-orange-600 flex items-center gap-2 font-medium transition-colors">
+                    Diskusi Project <i data-lucide="arrow-right" class="w-4 h-4"></i>
+                </a>
+            </div>
+
+            <div class="grid lg:grid-cols-3 gap-8">
+                <!-- Case Study 1 -->
+                <div class="group relative bg-slate-50 rounded-3xl p-8 hover:bg-slate-900 transition-colors duration-500">
+                    <div class="absolute top-8 right-8 bg-white p-3 rounded-xl shadow-sm group-hover:bg-white/10 group-hover:text-white transition-colors">
+                        <i data-lucide="trending-up" class="w-6 h-6 text-orange-600 group-hover:text-orange-400"></i>
+                    </div>
+                    <div class="mb-8 mt-2">
+                        <h4 class="text-2xl font-bold text-slate-900 group-hover:text-white mb-2">The Rasidu</h4>
+                        <p class="text-orange-600 group-hover:text-orange-400 font-medium">Growth Strategy Lead</p>
+                    </div>
+                    <div class="space-y-6">
+                        <div>
+                            <p class="text-xs font-semibold text-slate-400 uppercase tracking-wider mb-2">Challenge</p>
+                            <p class="text-slate-600 group-hover:text-slate-300 text-sm leading-relaxed">
+                                Membangun basis pengguna awal untuk platform persiapan SNBT di pasar yang sangat kompetitif.
+                            </p>
+                        </div>
+                        <div>
+                            <p class="text-xs font-semibold text-slate-400 uppercase tracking-wider mb-2">Result</p>
+                            <p class="text-slate-900 group-hover:text-white font-medium text-lg">
+                                0 ke 70,000 User dalam 1 tahun.
+                            </p>
+                        </div>
+                    </div>
+                    <div class="mt-8 flex gap-2 flex-wrap">
+                        <span class="px-3 py-1 rounded-full bg-white border border-slate-200 text-xs font-medium text-slate-600 group-hover:bg-white/10 group-hover:border-white/10 group-hover:text-white">B2C Growth</span>
+                        <span class="px-3 py-1 rounded-full bg-white border border-slate-200 text-xs font-medium text-slate-600 group-hover:bg-white/10 group-hover:border-white/10 group-hover:text-white">Edutech</span>
+                    </div>
+                </div>
+
+                <!-- Case Study 2 -->
+                <div class="group relative bg-slate-50 rounded-3xl p-8 hover:bg-slate-900 transition-colors duration-500">
+                    <div class="absolute top-8 right-8 bg-white p-3 rounded-xl shadow-sm group-hover:bg-white/10 group-hover:text-white transition-colors">
+                        <i data-lucide="map" class="w-6 h-6 text-orange-600 group-hover:text-orange-400"></i>
+                    </div>
+                    <div class="mb-8 mt-2">
+                        <h4 class="text-2xl font-bold text-slate-900 group-hover:text-white mb-2">Tapakita</h4>
+                        <p class="text-orange-600 group-hover:text-orange-400 font-medium">Innovation Lead</p>
+                    </div>
+                    <div class="space-y-6">
+                        <div>
+                            <p class="text-xs font-semibold text-slate-400 uppercase tracking-wider mb-2">Challenge</p>
+                            <p class="text-slate-600 group-hover:text-slate-300 text-sm leading-relaxed">
+                                Validasi model bisnis baru yang menggabungkan pariwisata budaya dengan modul edukasi formal.
+                            </p>
+                        </div>
+                        <div>
+                            <p class="text-xs font-semibold text-slate-400 uppercase tracking-wider mb-2">Result</p>
+                            <p class="text-slate-900 group-hover:text-white font-medium text-lg">
+                                Validated Edutourism MVP Model.
+                            </p>
+                        </div>
+                    </div>
+                    <div class="mt-8 flex gap-2 flex-wrap">
+                        <span class="px-3 py-1 rounded-full bg-white border border-slate-200 text-xs font-medium text-slate-600 group-hover:bg-white/10 group-hover:border-white/10 group-hover:text-white">Innovation</span>
+                        <span class="px-3 py-1 rounded-full bg-white border border-slate-200 text-xs font-medium text-slate-600 group-hover:bg-white/10 group-hover:border-white/10 group-hover:text-white">Culture</span>
+                    </div>
+                </div>
+
+                <!-- Case Study 3 -->
+                <div class="group relative bg-slate-50 rounded-3xl p-8 hover:bg-slate-900 transition-colors duration-500">
+                    <div class="absolute top-8 right-8 bg-white p-3 rounded-xl shadow-sm group-hover:bg-white/10 group-hover:text-white transition-colors">
+                        <i data-lucide="layout" class="w-6 h-6 text-orange-600 group-hover:text-orange-400"></i>
+                    </div>
+                    <div class="mb-8 mt-2">
+                        <h4 class="text-2xl font-bold text-slate-900 group-hover:text-white mb-2">Gome.id</h4>
+                        <p class="text-orange-600 group-hover:text-orange-400 font-medium">Product Foundation</p>
+                    </div>
+                    <div class="space-y-6">
+                        <div>
+                            <p class="text-xs font-semibold text-slate-400 uppercase tracking-wider mb-2">Challenge</p>
+                            <p class="text-slate-600 group-hover:text-slate-300 text-sm leading-relaxed">
+                                Merancang user journey awal yang ramah bagi pengguna yang tidak terbiasa dengan teknologi kompleks.
+                            </p>
+                        </div>
+                        <div>
+                            <p class="text-xs font-semibold text-slate-400 uppercase tracking-wider mb-2">Result</p>
+                            <p class="text-slate-900 group-hover:text-white font-medium text-lg">
+                                High Retention UI/UX Framework.
+                            </p>
+                        </div>
+                    </div>
+                    <div class="mt-8 flex gap-2 flex-wrap">
+                        <span class="px-3 py-1 rounded-full bg-white border border-slate-200 text-xs font-medium text-slate-600 group-hover:bg-white/10 group-hover:border-white/10 group-hover:text-white">UI/UX</span>
+                        <span class="px-3 py-1 rounded-full bg-white border border-slate-200 text-xs font-medium text-slate-600 group-hover:bg-white/10 group-hover:border-white/10 group-hover:text-white">Research</span>
+                    </div>
+                </div>
+
+                <!-- Case Study 4 (New: Psikotes) -->
+                <div class="group relative bg-slate-50 rounded-3xl p-8 hover:bg-slate-900 transition-colors duration-500">
+                    <div class="absolute top-8 right-8 bg-white p-3 rounded-xl shadow-sm group-hover:bg-white/10 group-hover:text-white transition-colors">
+                        <i data-lucide="clipboard-check" class="w-6 h-6 text-orange-600 group-hover:text-orange-400"></i>
+                    </div>
+                    <div class="mb-8 mt-2">
+                        <h4 class="text-2xl font-bold text-slate-900 group-hover:text-white mb-2">Smart Psikotes</h4>
+                        <p class="text-orange-600 group-hover:text-orange-400 font-medium">Product Design & Dev</p>
+                    </div>
+                    <div class="space-y-6">
+                        <div>
+                            <p class="text-xs font-semibold text-slate-400 uppercase tracking-wider mb-2">Challenge</p>
+                            <p class="text-slate-600 group-hover:text-slate-300 text-sm leading-relaxed">
+                                Merancang aplikasi asesmen psikotes digital yang digunakan untuk kebutuhan asesmen massal di sekolah-sekolah.
+                            </p>
+                        </div>
+                        <div>
+                            <p class="text-xs font-semibold text-slate-400 uppercase tracking-wider mb-2">Result</p>
+                            <p class="text-slate-900 group-hover:text-white font-medium text-lg">
+                                Diakses oleh 50.000+ Siswa.
+                            </p>
+                        </div>
+                    </div>
+                    <div class="mt-8 flex gap-2 flex-wrap">
+                        <span class="px-3 py-1 rounded-full bg-white border border-slate-200 text-xs font-medium text-slate-600 group-hover:bg-white/10 group-hover:border-white/10 group-hover:text-white">Assessment</span>
+                        <span class="px-3 py-1 rounded-full bg-white border border-slate-200 text-xs font-medium text-slate-600 group-hover:bg-white/10 group-hover:border-white/10 group-hover:text-white">Edutech</span>
+                    </div>
+                </div>
+
+                <!-- Case Study 5 (New: ATS UMKM) -->
+                <div class="group relative bg-slate-50 rounded-3xl p-8 hover:bg-slate-900 transition-colors duration-500">
+                    <div class="absolute top-8 right-8 bg-white p-3 rounded-xl shadow-sm group-hover:bg-white/10 group-hover:text-white transition-colors">
+                        <i data-lucide="users-round" class="w-6 h-6 text-orange-600 group-hover:text-orange-400"></i>
+                    </div>
+                    <div class="mb-8 mt-2">
+                        <h4 class="text-2xl font-bold text-slate-900 group-hover:text-white mb-2">SME ATS</h4>
+                        <p class="text-orange-600 group-hover:text-orange-400 font-medium">Product Development</p>
+                    </div>
+                    <div class="space-y-6">
+                        <div>
+                            <p class="text-xs font-semibold text-slate-400 uppercase tracking-wider mb-2">Challenge</p>
+                            <p class="text-slate-600 group-hover:text-slate-300 text-sm leading-relaxed">
+                                Mengembangkan Applicant Tracking System (ATS) yang terjangkau bagi UMKM untuk memilih kandidat pelamar yang tepat secara efisien.
+                            </p>
+                        </div>
+                        <div>
+                            <p class="text-xs font-semibold text-slate-400 uppercase tracking-wider mb-2">Result</p>
+                            <p class="text-slate-900 group-hover:text-white font-medium text-lg">
+                                Optimasi Recruitment UMKM.
+                            </p>
+                        </div>
+                    </div>
+                    <div class="mt-8 flex gap-2 flex-wrap">
+                        <span class="px-3 py-1 rounded-full bg-white border border-slate-200 text-xs font-medium text-slate-600 group-hover:bg-white/10 group-hover:border-white/10 group-hover:text-white">HR Tech</span>
+                        <span class="px-3 py-1 rounded-full bg-white border border-slate-200 text-xs font-medium text-slate-600 group-hover:bg-white/10 group-hover:border-white/10 group-hover:text-white">SaaS</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- NEW SECTION: Other Experience (Professional Journey) -->
+    <section id="journey" class="py-24 px-4 bg-slate-50 border-t border-slate-200">
+        <div class="max-w-4xl mx-auto">
+            <div class="text-center mb-16">
+                <h2 class="text-sm font-bold text-orange-600 tracking-wider uppercase mb-2">Perjalanan Karir</h2>
+                <h3 class="text-3xl font-bold text-slate-900">Pengalaman Profesional Lainnya</h3>
+                <p class="text-slate-500 mt-4 max-w-xl mx-auto">
+                    Jejak langkah saya di berbagai peran strategis, dari konsultansi hingga manajemen kemitraan.
+                </p>
+            </div>
+
+            <div class="space-y-8 relative before:absolute before:inset-0 before:ml-5 before:-translate-x-px md:before:mx-auto md:before:translate-x-0 before:h-full before:w-0.5 before:bg-gradient-to-b before:from-transparent before:via-slate-300 before:to-transparent">
+                
+                <!-- Item 1 -->
+                <div class="relative flex items-center justify-between md:justify-normal md:odd:flex-row-reverse group is-active">
+                    <div class="flex items-center justify-center w-10 h-10 rounded-full border border-white bg-slate-200 shadow shrink-0 md:order-1 md:group-odd:-translate-x-1/2 md:group-even:translate-x-1/2 group-hover:bg-orange-600 group-hover:text-white transition-colors">
+                        <i data-lucide="briefcase" class="w-4 h-4 text-slate-500 group-hover:text-white"></i>
+                    </div>
+                    <div class="w-[calc(100%-4rem)] md:w-[calc(50%-2.5rem)] bg-white p-6 rounded-2xl shadow-card hover:shadow-soft transition-all">
+                        <div class="flex justify-between items-start mb-2">
+                            <h4 class="font-bold text-slate-900 text-lg">Edutourism Consultant</h4>
+                            <span class="text-xs font-semibold text-orange-600 bg-orange-50 px-2 py-1 rounded">2021 - Sekarang</span>
+                        </div>
+                        <p class="text-sm font-medium text-slate-500 mb-3">Freelance / Project Based</p>
+                        <p class="text-slate-600 text-sm leading-relaxed">
+                            Membantu desa wisata di Yogyakarta mendigitalkan paket wisata edukasi. Merancang paket yang sesuai dengan kurikulum sekolah agar menarik bagi kunjungan studi banding.
+                        </p>
+                    </div>
+                </div>
+
+                <!-- Item 2 -->
+                <div class="relative flex items-center justify-between md:justify-normal md:odd:flex-row-reverse group">
+                    <div class="flex items-center justify-center w-10 h-10 rounded-full border border-white bg-slate-200 shadow shrink-0 md:order-1 md:group-odd:-translate-x-1/2 md:group-even:translate-x-1/2 group-hover:bg-orange-600 group-hover:text-white transition-colors">
+                        <i data-lucide="building-2" class="w-4 h-4 text-slate-500 group-hover:text-white"></i>
+                    </div>
+                    <div class="w-[calc(100%-4rem)] md:w-[calc(50%-2.5rem)] bg-white p-6 rounded-2xl shadow-card hover:shadow-soft transition-all">
+                        <div class="flex justify-between items-start mb-2">
+                            <h4 class="font-bold text-slate-900 text-lg">Partnership Manager</h4>
+                            <span class="text-xs font-semibold text-slate-500 bg-slate-100 px-2 py-1 rounded">2018 - 2020</span>
+                        </div>
+                        <p class="text-sm font-medium text-slate-500 mb-3">EduTech Indo (Startup)</p>
+                        <p class="text-slate-600 text-sm leading-relaxed">
+                            Mengelola hubungan dengan 50+ mitra universitas dan sekolah. Menginisiasi program magang digital yang menjembatani gap skill lulusan dengan kebutuhan industri.
+                        </p>
+                    </div>
+                </div>
+
+                 <!-- Item 3 -->
+                 <div class="relative flex items-center justify-between md:justify-normal md:odd:flex-row-reverse group">
+                    <div class="flex items-center justify-center w-10 h-10 rounded-full border border-white bg-slate-200 shadow shrink-0 md:order-1 md:group-odd:-translate-x-1/2 md:group-even:translate-x-1/2 group-hover:bg-orange-600 group-hover:text-white transition-colors">
+                        <i data-lucide="users" class="w-4 h-4 text-slate-500 group-hover:text-white"></i>
+                    </div>
+                    <div class="w-[calc(100%-4rem)] md:w-[calc(50%-2.5rem)] bg-white p-6 rounded-2xl shadow-card hover:shadow-soft transition-all">
+                        <div class="flex justify-between items-start mb-2">
+                            <h4 class="font-bold text-slate-900 text-lg">Community Lead</h4>
+                            <span class="text-xs font-semibold text-slate-500 bg-slate-100 px-2 py-1 rounded">2017 - 2018</span>
+                        </div>
+                        <p class="text-sm font-medium text-slate-500 mb-3">Jogja Digital Valley</p>
+                        <p class="text-slate-600 text-sm leading-relaxed">
+                            Mengorganisir event mingguan untuk komunitas startup lokal. Membangun ekosistem belajar yang inklusif bagi talenta digital baru di Yogyakarta.
+                        </p>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- Skills & Tools (Clean Grid) -->
+    <section id="skills" class="py-24 px-4 bg-white">
+        <div class="max-w-6xl mx-auto">
+            <div class="flex flex-col md:flex-row justify-between items-end mb-16">
+                <div>
+                    <h2 class="text-sm font-bold text-orange-600 tracking-wider uppercase mb-2">Expertise</h2>
+                    <h3 class="text-3xl font-bold text-slate-900">The Toolbox.</h3>
+                </div>
+            </div>
+
+            <div class="grid md:grid-cols-3 gap-8">
+                <!-- Strategy -->
+                <div class="p-8 rounded-3xl bg-slate-50 border border-slate-100 hover:border-orange-200 transition-colors">
+                    <div class="w-12 h-12 bg-white rounded-xl shadow-sm flex items-center justify-center mb-6 text-orange-600">
+                        <i data-lucide="target" class="w-6 h-6"></i>
+                    </div>
+                    <h4 class="text-xl font-bold text-slate-900 mb-4">Product Strategy</h4>
+                    <ul class="space-y-3">
+                        <li class="flex items-center text-slate-600 text-sm">
+                            <div class="w-1.5 h-1.5 rounded-full bg-orange-400 mr-3"></div> Roadmap Planning
+                        </li>
+                        <li class="flex items-center text-slate-600 text-sm">
+                            <div class="w-1.5 h-1.5 rounded-full bg-orange-400 mr-3"></div> Market Validation
+                        </li>
+                        <li class="flex items-center text-slate-600 text-sm">
+                            <div class="w-1.5 h-1.5 rounded-full bg-orange-400 mr-3"></div> Design Thinking
+                        </li>
+                        <li class="flex items-center text-slate-600 text-sm">
+                            <div class="w-1.5 h-1.5 rounded-full bg-orange-400 mr-3"></div> Go-to-Market
+                        </li>
+                    </ul>
+                </div>
+
+                <!-- Execution -->
+                <div class="p-8 rounded-3xl bg-slate-50 border border-slate-100 hover:border-orange-200 transition-colors">
+                    <div class="w-12 h-12 bg-white rounded-xl shadow-sm flex items-center justify-center mb-6 text-orange-600">
+                        <i data-lucide="zap" class="w-6 h-6"></i>
+                    </div>
+                    <h4 class="text-xl font-bold text-slate-900 mb-4">Growth & Ops</h4>
+                    <ul class="space-y-3">
+                        <li class="flex items-center text-slate-600 text-sm">
+                            <div class="w-1.5 h-1.5 rounded-full bg-orange-400 mr-3"></div> User Research
+                        </li>
+                        <li class="flex items-center text-slate-600 text-sm">
+                            <div class="w-1.5 h-1.5 rounded-full bg-orange-400 mr-3"></div> B2B Partnership
+                        </li>
+                        <li class="flex items-center text-slate-600 text-sm">
+                            <div class="w-1.5 h-1.5 rounded-full bg-orange-400 mr-3"></div> Agile Management
+                        </li>
+                        <li class="flex items-center text-slate-600 text-sm">
+                            <div class="w-1.5 h-1.5 rounded-full bg-orange-400 mr-3"></div> Stakeholder Mgmt
+                        </li>
+                    </ul>
+                </div>
+
+                <!-- Tools -->
+                <div class="p-8 rounded-3xl bg-slate-50 border border-slate-100 hover:border-orange-200 transition-colors">
+                    <div class="w-12 h-12 bg-white rounded-xl shadow-sm flex items-center justify-center mb-6 text-orange-600">
+                        <i data-lucide="monitor" class="w-6 h-6"></i>
+                    </div>
+                    <h4 class="text-xl font-bold text-slate-900 mb-4">Tech & Tools</h4>
+                    <ul class="space-y-3">
+                        <li class="flex items-center text-slate-600 text-sm">
+                            <div class="w-1.5 h-1.5 rounded-full bg-orange-400 mr-3"></div> Figma & Miro
+                        </li>
+                        <li class="flex items-center text-slate-600 text-sm">
+                            <div class="w-1.5 h-1.5 rounded-full bg-orange-400 mr-3"></div> Product Analytics
+                        </li>
+                        <li class="flex items-center text-slate-600 text-sm">
+                            <div class="w-1.5 h-1.5 rounded-full bg-orange-400 mr-3"></div> Jira / Linear
+                        </li>
+                        <li class="flex items-center text-slate-600 text-sm">
+                            <div class="w-1.5 h-1.5 rounded-full bg-orange-400 mr-3"></div> Notion Mastery
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer / CTA -->
+    <section id="contact" class="py-24 px-4 bg-slate-900 text-white relative overflow-hidden">
+         <div class="absolute top-0 right-0 w-1/2 h-full bg-orange-600/5 skew-x-12 translate-x-20 pointer-events-none"></div>
+
+        <div class="max-w-3xl mx-auto text-center relative z-10">
+            <h2 class="text-4xl md:text-5xl font-bold mb-8">Punya ide besar untuk<br/>Edukasi Indonesia?</h2>
+            <p class="text-slate-400 text-lg mb-12 max-w-xl mx-auto">
+                Saya selalu antusias berdiskusi tentang peluang baru, baik itu proyek freelance, konsultasi, atau sekadar bertukar pikiran.
+            </p>
+            
+            <div class="flex flex-col sm:flex-row justify-center gap-6">
+                <a href="mailto:hello@kennedi.id" class="flex items-center justify-center gap-3 bg-orange-600 text-white px-8 py-4 rounded-xl hover:bg-orange-500 transition-all shadow-lg hover:shadow-orange-900/50">
+                    <i data-lucide="mail" class="w-5 h-5"></i>
+                    Kirim Email
+                </a>
+                <a href="https://linkedin.com" target="_blank" class="flex items-center justify-center gap-3 bg-white/10 text-white border border-white/20 px-8 py-4 rounded-xl hover:bg-white/20 transition-all backdrop-blur-sm">
+                    <i data-lucide="linkedin" class="w-5 h-5"></i>
+                    Connect LinkedIn
+                </a>
+            </div>
+
+            <div class="mt-20 pt-8 border-t border-white/10 text-slate-500 text-sm flex flex-col md:flex-row justify-between items-center">
+                <span>&copy; <span id="year"></span> Kennedi Rahmat Hidayat.</span>
+                <span class="mt-2 md:mt-0 flex items-center gap-2">
+                    Dibuat di Yogyakarta <i data-lucide="heart" class="w-3 h-3 text-red-500 fill-current"></i>
+                </span>
+            </div>
+        </div>
+    </section>
+
+    <!-- Logic Script -->
+    <script>
+        lucide.createIcons();
+        document.getElementById('year').textContent = new Date().getFullYear();
+
+        // Mobile Menu
+        const mobileMenuBtn = document.getElementById('mobile-menu-btn');
+        const mobileMenu = document.getElementById('mobile-menu');
+        const menuIcon = document.getElementById('menu-icon');
+        let isMenuOpen = false;
+
+        mobileMenuBtn.addEventListener('click', () => {
+            isMenuOpen = !isMenuOpen;
+            if (isMenuOpen) {
+                mobileMenu.classList.remove('hidden');
+                menuIcon.setAttribute('data-lucide', 'x');
+                document.body.style.overflow = 'hidden'; // Lock scroll
+            } else {
+                mobileMenu.classList.add('hidden');
+                menuIcon.setAttribute('data-lucide', 'menu');
+                document.body.style.overflow = 'auto'; // Unlock scroll
+            }
+            lucide.createIcons();
+        });
+
+        // Close menu on link click
+        document.querySelectorAll('#mobile-menu button, #mobile-menu a').forEach(link => {
+            link.addEventListener('click', () => {
+                isMenuOpen = false;
+                mobileMenu.classList.add('hidden');
+                menuIcon.setAttribute('data-lucide', 'menu');
+                document.body.style.overflow = 'auto';
+                lucide.createIcons();
+            });
+        });
+
+        // Smooth Scroll
+        function scrollToSection(id) {
+            const element = document.getElementById(id);
+            if (element) {
+                const navbarHeight = 80; 
+                const elementPosition = element.getBoundingClientRect().top;
+                const offsetPosition = elementPosition + window.pageYOffset - navbarHeight;
+
+                window.scrollTo({
+                    top: offsetPosition,
+                    behavior: "smooth"
+                });
+            }
+        }
+    </script>
+</body>
+</html>
